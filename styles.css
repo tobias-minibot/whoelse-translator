@@ -343,6 +343,57 @@ h1, h2, h3 {
   max-height: calc(100vh - 60px);
 }
 
+/* ---------- Mobile Language Strip ---------- */
+.lang-strip {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .lang-strip {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: calc(100% + 2.5rem);
+    margin: -0.5rem -1.25rem 0;
+    padding: 0.5rem 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .lang-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lang-chip {
+    flex-shrink: 0;
+    padding: 0.3rem 0.7rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    background: rgba(245, 236, 215, 0.04);
+    color: var(--parchment-dim);
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .lang-chip:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    color: var(--parchment);
+  }
+
+  .lang-chip.active {
+    background: var(--gold);
+    color: var(--midnight);
+    border-color: var(--gold);
+    font-weight: 600;
+  }
+}
+
 /* ---------- Key Stats (speakers + frequency) ---------- */
 .key-stats {
   display: flex;

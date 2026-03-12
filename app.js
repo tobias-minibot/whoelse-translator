@@ -37,11 +37,23 @@
   const universalPhrasesLangName = $(".universal-phrases__lang-name");
   const shareModal = $(".share-modal");
   const shareCanvas = $("#share-canvas");
+  const langStrip = $(".lang-strip");
   const tourBanner = $(".tour-banner");
   const toast = $(".toast");
 
   // ---- Init ----
   function init() {
+    // Build mobile language strip
+    langStrip.innerHTML = languages
+      .map((l) => `<button class="lang-chip" data-code="${l.code}">${l.name}</button>`)
+      .join("");
+    langStrip.addEventListener("click", (e) => {
+      const chip = e.target.closest(".lang-chip");
+      if (!chip) return;
+      const lang = languages.find((l) => l.code === chip.dataset.code);
+      if (lang) selectLanguage(lang);
+    });
+
     // Inject world map SVG
     if (typeof worldMapSVG !== "undefined") {
       worldMapContainer.innerHTML = worldMapSVG;
@@ -180,10 +192,17 @@
       $$(".lang-item").forEach((el) => {
         el.classList.toggle("active", el.dataset.code === lang.code);
       });
+      $$(".lang-chip").forEach((el) => {
+        el.classList.toggle("active", el.dataset.code === lang.code);
+      });
 
       const activeItem = $(`.lang-item[data-code="${lang.code}"]`);
       if (activeItem) {
         activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+      const activeChip = $(`.lang-chip[data-code="${lang.code}"]`);
+      if (activeChip) {
+        activeChip.scrollIntoView({ inline: "center", behavior: "smooth", block: "nearest" });
       }
 
       // Scroll main content to top
