@@ -43,26 +43,38 @@
   <main class="main" role="main">
     <!-- Hero: big centered phrase -->
     <section class="hero" aria-live="polite">
-      <div class="hero__lang-label"></div>
+      <div class="hero__top-row">
+        <div class="hero__lang-label"></div>
+        <button class="hero__audio-btn hidden" aria-label="Listen to pronunciation" title="Listen">&#9654;</button>
+      </div>
       <div class="hero__native-name"></div>
       <div class="hero__phrase-wrap">
         <div class="hero__phrase" role="heading" aria-level="2"></div>
       </div>
       <div class="hero__romanization"></div>
       <div class="hero__gloss"></div>
-      <button class="hero__audio-btn hidden" aria-label="Listen to pronunciation" title="Listen">&#9654;</button>
     </section>
 
-    <!-- Key Stats: speakers + frequency centered -->
+    <!-- Key Stats: frequency → rank → population → speakers -->
     <section class="key-stats" aria-label="Key statistics">
-      <div class="key-stats__speakers">
-        <span class="key-stats__number" id="lang-speakers"></span>
-        <span class="key-stats__label">native speakers</span>
-      </div>
-      <div class="key-stats__divider"></div>
       <div class="key-stats__frequency">
         <span class="key-stats__number" id="lang-frequency"></span>
         <span class="key-stats__label">uses per day</span>
+      </div>
+      <div class="key-stats__divider"></div>
+      <div class="key-stats__ranked">
+        <span class="key-stats__number" id="lang-ranked"></span>
+        <span class="key-stats__label" id="lang-ranked-label">phrase rank</span>
+      </div>
+      <div class="key-stats__divider"></div>
+      <div class="key-stats__population">
+        <span class="key-stats__number" id="lang-population"></span>
+        <span class="key-stats__label">of world population</span>
+      </div>
+      <div class="key-stats__divider"></div>
+      <div class="key-stats__speakers">
+        <span class="key-stats__number" id="lang-speakers"></span>
+        <span class="key-stats__label">native speakers</span>
       </div>
     </section>
 

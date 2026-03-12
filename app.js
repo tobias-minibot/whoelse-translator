@@ -24,7 +24,10 @@
   const counterNumber = $(".counter__number");
   const counterLabel = $(".counter__label");
   const langSpeakers = $("#lang-speakers");
+  const langPopulation = $("#lang-population");
   const langFrequency = $("#lang-frequency");
+  const langRanked = $("#lang-ranked");
+  const langRankedLabel = $("#lang-ranked-label");
   const searchInput = $(".sidebar__search input");
   const sidebarLangList = $(".sidebar__langs");
   const infoGrid = $(".info-panel__grid");
@@ -182,6 +185,9 @@
       if (activeItem) {
         activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
+
+      // Scroll main content to top
+      $(".main").scrollTo({ top: 0, behavior: "smooth" });
     }
 
     // Skip animation on first load
@@ -207,18 +213,36 @@
     }, 350);
   }
 
+  // ---- Precompute phrase ranks (by commonalityScore, descending) ----
+  const phraseRanks = (() => {
+    const sorted = [...languages].sort((a, b) => (b.commonalityScore || 0) - (a.commonalityScore || 0));
+    const ranks = {};
+    sorted.forEach((l, i) => { ranks[l.code] = i + 1; });
+    return ranks;
+  })();
+
+  const WORLD_POPULATION = 8.1e9;
+
   // ---- Key Stats ----
   function updateKeyStats(lang) {
     langSpeakers.textContent = formatNumber(lang.speakers);
+
+    const pct = ((lang.speakers / WORLD_POPULATION) * 100);
+    langPopulation.textContent = pct >= 1 ? pct.toFixed(1) + "%" : "<1%";
+
     const perHour = lang.usagePerHour || 0;
     const perDay = Math.round(perHour * 10);
     langFrequency.textContent = "~" + perDay;
+
+    const rank = phraseRanks[lang.code] || "—";
+    langRanked.textContent = "#" + rank;
+    const ordinal = rank === 1 ? "most" : rank === 2 ? "2nd most" : rank === 3 ? "3rd most" : rank + "th most";
+    langRankedLabel.textContent = ordinal + " common phrase in " + lang.name;
   }
 
   // ---- World Map ----
   function updateWorldMap(lang) {
-    const paths = worldMapContainer.querySelectorAll("svg path");
-    paths.forEach((p) => p.classList.remove("highlighted"));
+    worldMapContainer.querySelectorAll(".highlighted").forEach((el) => el.classList.remove("highlighted"));
     if (lang.countries && lang.countries.length) {
       lang.countries.forEach((code) => {
         const el = worldMapContainer.querySelector(`#${code}`);
@@ -263,29 +287,27 @@
     universalPhrasesLangName.textContent = lang.name;
     const translations = lang.universalPhraseTranslations;
     const dir = lang.scriptDirection === "rtl" ? ' dir="rtl"' : "";
-    const perDay = Math.round((lang.usagePerHour || 0) * 10);
+    const whoElsePerDay = Math.round((lang.usagePerHour || 0) * 10);
 
-    // "Who else?" as first row (highlighted)
-    let rows = `
-      <div class="phrase-row phrase-row--active">
-        <span class="phrase-row__english">Who else?</span>
-        <span class="phrase-row__translation"${dir}>${lang.phrase}</span>
-        <span class="phrase-row__freq">~${perDay}/day</span>
-      </div>
-    `;
+    // Build all phrases with frequency, then sort by usage descending
+    const allPhrases = [
+      { english: "Who else?", translation: lang.phrase, perDay: whoElsePerDay, isWhoElse: true },
+      ...universalPhrases.map((p) => ({
+        english: p.english,
+        translation: translations ? translations[p.id] : "\u2014",
+        perDay: p.usagePerDay,
+        isWhoElse: false,
+      })),
+    ].sort((a, b) => b.perDay - a.perDay);
 
-    // Other universal phrases with frequency
-    rows += universalPhrases
-      .map((phrase) => {
-        const translation = translations ? translations[phrase.id] : "\u2014";
-        return `
-        <div class="phrase-row">
-          <span class="phrase-row__english">${phrase.english}</span>
-          <span class="phrase-row__translation"${dir}>${translation}</span>
-          <span class="phrase-row__freq">~${phrase.usagePerDay}/day</span>
+    const rows = allPhrases
+      .map((p) => `
+        <div class="phrase-row${p.isWhoElse ? " phrase-row--active" : ""}">
+          <span class="phrase-row__english">${p.english}</span>
+          <span class="phrase-row__translation"${dir}>${p.translation}</span>
+          <span class="phrase-row__freq">~${p.perDay}/day</span>
         </div>
-      `;
-      })
+      `)
       .join("");
 
     universalPhrasesGrid.innerHTML = rows;
@@ -339,15 +361,19 @@
     }
   }
 
+  const btnTour = $("#btn-tour");
+
   function startTour() {
     isTourActive = true;
     tourBanner.classList.add("active");
+    btnTour.classList.add("btn--active");
     tourInterval = setInterval(randomize, 3000);
   }
 
   function stopTour() {
     isTourActive = false;
     tourBanner.classList.remove("active");
+    btnTour.classList.remove("btn--active");
     clearInterval(tourInterval);
     tourInterval = null;
   }
