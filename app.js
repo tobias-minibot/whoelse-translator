@@ -9,6 +9,7 @@
   let currentLang = languages[0];
   let tourInterval = null;
   let isTourActive = false;
+  let isFirstLoad = true;
 
   // ---- DOM refs ----
   const $ = (sel) => document.querySelector(sel);
@@ -143,10 +144,7 @@
   function selectLanguage(lang) {
     currentLang = lang;
 
-    // Slot-machine spin out
-    heroPhrase.classList.add("spin-out");
-    setTimeout(() => {
-      // Update hero
+    function applyLanguage() {
       heroLangLabel.textContent = lang.name;
       heroNativeName.textContent = lang.nativeName;
 
@@ -170,26 +168,32 @@
         heroAudioBtn.classList.add("hidden");
       }
 
-      // Update frequency + map
       updateFrequency(lang);
       updateWorldMap(lang);
-
-      // Update info panel
       updateInfoPanel(lang);
       updateUniversalPhrases(lang);
 
-      // Update active state in sidebar
       $$(".lang-item").forEach((el) => {
         el.classList.toggle("active", el.dataset.code === lang.code);
       });
 
-      // Scroll active item into view
       const activeItem = $(`.lang-item[data-code="${lang.code}"]`);
       if (activeItem) {
         activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
+    }
 
-      // Slot-machine: position below, then spin in
+    // Skip animation on first load
+    if (isFirstLoad) {
+      isFirstLoad = false;
+      applyLanguage();
+      return;
+    }
+
+    // Slot-machine spin out, then in
+    heroPhrase.classList.add("spin-out");
+    setTimeout(() => {
+      applyLanguage();
       heroPhrase.classList.remove("spin-out");
       heroPhrase.classList.add("spin-ready");
       requestAnimationFrame(() => {
