@@ -26,7 +26,8 @@
   const sidebarLangList = $(".sidebar__langs");
   const infoGrid = $(".info-panel__grid");
   const infoNoteText = $(".info-panel__note-text");
-  const commonalityContainer = $(".info-panel__commonality");
+  const heroFrequency = $(".hero__frequency");
+  const worldMapContainer = $("#world-map-container");
   const universalPhrasesGrid = $(".universal-phrases__grid");
   const universalPhrasesLangName = $(".universal-phrases__lang-name");
   const shareModal = $(".share-modal");
@@ -36,6 +37,10 @@
 
   // ---- Init ----
   function init() {
+    // Inject world map SVG
+    if (typeof worldMapSVG !== "undefined") {
+      worldMapContainer.innerHTML = worldMapSVG;
+    }
     renderSidebar();
     selectLanguage(languages[0]);
     animateCounter();
@@ -138,8 +143,8 @@
   function selectLanguage(lang) {
     currentLang = lang;
 
-    // Animate transition
-    heroPhrase.classList.add("fade-out");
+    // Slot-machine spin out
+    heroPhrase.classList.add("spin-out");
     setTimeout(() => {
       // Update hero
       heroLangLabel.textContent = lang.name;
@@ -165,8 +170,9 @@
         heroAudioBtn.classList.add("hidden");
       }
 
-      // Update mini map
-      updateMiniMap(lang);
+      // Update frequency + map
+      updateFrequency(lang);
+      updateWorldMap(lang);
 
       // Update info panel
       updateInfoPanel(lang);
@@ -183,18 +189,41 @@
         activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
 
-      heroPhrase.classList.remove("fade-out");
-      heroPhrase.classList.add("fade-in");
-      setTimeout(() => heroPhrase.classList.remove("fade-in"), 300);
-    }, 150);
+      // Slot-machine: position below, then spin in
+      heroPhrase.classList.remove("spin-out");
+      heroPhrase.classList.add("spin-ready");
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          heroPhrase.classList.remove("spin-ready");
+          heroPhrase.classList.add("spin-in");
+          setTimeout(() => heroPhrase.classList.remove("spin-in"), 400);
+        });
+      });
+    }, 350);
   }
 
-  // ---- Mini Map ----
-  function updateMiniMap(lang) {
-    $$(".mini-map svg path").forEach((p) => p.classList.remove("active"));
-    if (lang.region) {
-      const el = $(`#region-${lang.region}`);
-      if (el) el.classList.add("active");
+  // ---- Frequency (under hero) ----
+  function updateFrequency(lang) {
+    const perHour = lang.usagePerHour || 0;
+    const perDay = Math.round(perHour * 10);
+    heroFrequency.innerHTML = `
+      <div class="hero-freq">
+        <span class="hero-freq__rate">~${perHour} uses/hour</span>
+        <span class="hero-freq__detail">~${perDay} uses per day</span>
+      </div>
+      <div class="hero-freq__note">${lang.commonalityNote}</div>
+    `;
+  }
+
+  // ---- World Map ----
+  function updateWorldMap(lang) {
+    const paths = worldMapContainer.querySelectorAll("svg path");
+    paths.forEach((p) => p.classList.remove("highlighted"));
+    if (lang.countries && lang.countries.length) {
+      lang.countries.forEach((code) => {
+        const el = worldMapContainer.querySelector(`#${code}`);
+        if (el) el.classList.add("highlighted");
+      });
     }
   }
 
@@ -227,65 +256,36 @@
       </div>
     `;
     infoNoteText.textContent = lang.elseNote;
-
-    // Conversational Frequency (per-hour)
-    const perHour = lang.usagePerHour || 0;
-    const maxPerHour = 1.5;
-    const barWidth = Math.min((perHour / maxPerHour) * 100, 100);
-    const perDay = Math.round(perHour * 10);
-    commonalityContainer.innerHTML = `
-      <div class="commonality">
-        <div class="commonality__header">
-          <span class="commonality__label">Conversational Frequency</span>
-          <span class="commonality__descriptor">~${perHour} uses/hour</span>
-        </div>
-        <div class="commonality__bar-track">
-          <div class="commonality__bar-fill" style="background:var(--gold)"></div>
-        </div>
-        <span class="commonality__estimate">~${perDay} uses per day · Based on conversational culture and phrase brevity</span>
-        <span class="commonality__note">${lang.commonalityNote}</span>
-      </div>
-    `;
-    // Animate bar fill after DOM insertion
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const fill = commonalityContainer.querySelector(".commonality__bar-fill");
-        if (fill) fill.style.width = barWidth + "%";
-      });
-    });
   }
 
   // ---- Universal Phrases ----
   function updateUniversalPhrases(lang) {
     universalPhrasesLangName.textContent = lang.name;
     const translations = lang.universalPhraseTranslations;
+    const dir = lang.scriptDirection === "rtl" ? ' dir="rtl"' : "";
 
-    universalPhrasesGrid.innerHTML = universalPhrases
+    // "Who else?" as first row (highlighted)
+    let rows = `
+      <div class="phrase-row phrase-row--active">
+        <span class="phrase-row__english">Who else?</span>
+        <span class="phrase-row__translation"${dir}>${lang.phrase}</span>
+      </div>
+    `;
+
+    // Other universal phrases
+    rows += universalPhrases
       .map((phrase) => {
         const translation = translations ? translations[phrase.id] : "\u2014";
-        const badgeClass =
-          phrase.structureMatch === "high"
-            ? "universal"
-            : phrase.structureMatch === "medium"
-            ? "common"
-            : "varies";
-        const badgeText =
-          phrase.structureMatch === "high"
-            ? "Universal"
-            : phrase.structureMatch === "medium"
-            ? "Common"
-            : "Varies";
         return `
-        <div class="universal-phrase-card">
-          <div class="universal-phrase-card__english">${phrase.english}</div>
-          <div class="universal-phrase-card__translation"${lang.scriptDirection === "rtl" ? ' dir="rtl"' : ""}>${translation}</div>
-          <div class="universal-phrase-card__meta">
-            <span class="universal-phrase-card__badge universal-phrase-card__badge--${badgeClass}">${badgeText}</span>
-          </div>
+        <div class="phrase-row">
+          <span class="phrase-row__english">${phrase.english}</span>
+          <span class="phrase-row__translation"${dir}>${translation}</span>
         </div>
       `;
       })
       .join("");
+
+    universalPhrasesGrid.innerHTML = rows;
   }
 
   // ---- Counter Animation ----

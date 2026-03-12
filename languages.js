@@ -17,6 +17,7 @@ const languages = [
     audioLang: "es-ES",
     commonalityScore: 9,
     region: "europe-west",
+    countries: ["es", "mx", "co", "ar", "pe", "cl", "ve", "ec", "cu", "us"],
     usagePerHour: 1.2,
     commonalityNote: "Highly social, group-oriented culture with compact 2-word phrase drives very frequent use in daily conversation.",
     universalPhraseTranslations: {
@@ -45,6 +46,7 @@ const languages = [
     audioLang: "fr-FR",
     commonalityScore: 6,
     region: "europe-west",
+    countries: ["fr", "be", "ch", "ca", "sn", "ci", "cd", "cm", "mg"],
     usagePerHour: 0.5,
     commonalityNote: "The slightly longer partitive construction makes it marginally less spontaneous than the compact Spanish equivalent.",
     universalPhraseTranslations: {
@@ -73,6 +75,7 @@ const languages = [
     audioLang: "pt-BR",
     commonalityScore: 9,
     region: "south-america",
+    countries: ["br", "pt", "ao", "mz"],
     usagePerHour: 1.2,
     commonalityNote: "Brazilian Portuguese culture is especially communal; compact phrase mirrors Spanish frequency patterns.",
     universalPhraseTranslations: {
@@ -101,6 +104,7 @@ const languages = [
     audioLang: "it-IT",
     commonalityScore: 8,
     region: "europe-west",
+    countries: ["it", "ch"],
     usagePerHour: 1.0,
     commonalityNote: "Animated conversational culture with frequent group discourse; compact phrase supports high usage.",
     universalPhraseTranslations: {
@@ -130,6 +134,7 @@ const languages = [
     audioLang: "de-DE",
     commonalityScore: 6,
     region: "europe-west",
+    countries: ["de", "at", "ch"],
     usagePerHour: 0.5,
     commonalityNote: "More structured conversational norms reduce casual interrogative frequency compared to Romance languages.",
     universalPhraseTranslations: {
@@ -158,6 +163,7 @@ const languages = [
     audioLang: "nl-NL",
     commonalityScore: 6,
     region: "europe-west",
+    countries: ["nl", "be", "sr"],
     usagePerHour: 0.5,
     commonalityNote: "Similar conversational profile to German; direct communication style with moderate interrogative frequency.",
     universalPhraseTranslations: {
@@ -186,6 +192,7 @@ const languages = [
     audioLang: "sv-SE",
     commonalityScore: 5,
     region: "europe-west",
+    countries: ["se", "fi"],
     usagePerHour: 0.3,
     commonalityNote: "Reserved Scandinavian communication style means less frequent casual interrogatives in group settings.",
     universalPhraseTranslations: {
@@ -215,6 +222,7 @@ const languages = [
     audioLang: "ru-RU",
     commonalityScore: 8,
     region: "europe-east",
+    countries: ["ru", "by", "kz", "ua", "kg"],
     usagePerHour: 1.0,
     commonalityNote: "Direct, expressive conversational culture with frequent group enumeration in social contexts.",
     universalPhraseTranslations: {
@@ -243,6 +251,7 @@ const languages = [
     audioLang: "pl-PL",
     commonalityScore: 7,
     region: "europe-east",
+    countries: ["pl"],
     usagePerHour: 0.7,
     commonalityNote: "Warm social culture with communal gatherings; the phrase arises naturally in group planning contexts.",
     universalPhraseTranslations: {
@@ -272,6 +281,7 @@ const languages = [
     audioLang: "hi-IN",
     commonalityScore: 10,
     region: "south-asia",
+    countries: ["in", "np", "fj"],
     usagePerHour: 1.5,
     commonalityNote: "Extremely communal culture with large social groups; the compact 2-word phrase is ubiquitous in daily conversation.",
     universalPhraseTranslations: {
@@ -300,6 +310,7 @@ const languages = [
     audioLang: "bn-IN",
     commonalityScore: 9,
     region: "south-asia",
+    countries: ["bd", "in"],
     usagePerHour: 1.2,
     commonalityNote: "Dense social networks and communal culture in Bengal drive very high interrogative frequency.",
     universalPhraseTranslations: {
@@ -329,6 +340,7 @@ const languages = [
     audioLang: "fa-IR",
     commonalityScore: 8,
     region: "middle-east",
+    countries: ["ir", "af", "tj"],
     usagePerHour: 1.0,
     commonalityNote: "Iranian hospitality culture (taarof) creates frequent social enumeration contexts; colloquial form is very natural.",
     universalPhraseTranslations: {
@@ -358,6 +370,7 @@ const languages = [
     audioLang: "el-GR",
     commonalityScore: 8,
     region: "europe-west",
+    countries: ["gr", "cy"],
     usagePerHour: 1.0,
     commonalityNote: "Gregarious Mediterranean culture with lively group discourse; the phrase is a staple of social coordination.",
     universalPhraseTranslations: {
@@ -387,6 +400,7 @@ const languages = [
     audioLang: "ar-SA",
     commonalityScore: 9,
     region: "middle-east",
+    countries: ["sa", "eg", "iq", "ma", "dz", "sd", "jo", "ae", "sy", "tn", "ly"],
     usagePerHour: 1.2,
     commonalityNote: "Deeply communal culture with strong traditions of group gathering (majlis); the phrase is essential in social coordination.",
     universalPhraseTranslations: {
@@ -415,6 +429,7 @@ const languages = [
     audioLang: "he-IL",
     commonalityScore: 8,
     region: "middle-east",
+    countries: ["il"],
     usagePerHour: 1.0,
     commonalityNote: "Israeli culture is famously direct and communal; the ultra-compact 'mi od?' is used constantly in group settings.",
     universalPhraseTranslations: {
@@ -443,6 +458,7 @@ const languages = [
     audioLang: "am-ET",
     commonalityScore: 7,
     region: "east-africa",
+    countries: ["et", "er"],
     usagePerHour: 0.7,
     commonalityNote: "Ethiopian communal dining (gursha) and social customs create natural contexts for group enumeration.",
     universalPhraseTranslations: {
@@ -472,6 +488,7 @@ const languages = [
     audioLang: "zh-CN",
     commonalityScore: 8,
     region: "east-asia",
+    countries: ["cn", "tw", "sg", "my"],
     usagePerHour: 1.0,
     commonalityNote: "Group-oriented social dynamics and communal decision-making drive high frequency in everyday planning.",
     universalPhraseTranslations: {
@@ -500,6 +517,7 @@ const languages = [
     audioLang: "zh-HK",
     commonalityScore: 8,
     region: "east-asia",
+    countries: ["cn", "hk", "mo"],
     usagePerHour: 1.0,
     commonalityNote: "Cantonese culture is highly social with communal dining (yum cha); the phrase is a natural part of group coordination.",
     universalPhraseTranslations: {
@@ -528,6 +546,7 @@ const languages = [
     audioLang: "bo",
     commonalityScore: 4,
     region: "east-asia",
+    countries: ["cn", "bt", "in"],
     usagePerHour: 0.2,
     commonalityNote: "Smaller speech community and more contemplative conversational norms mean less frequent casual interrogative use.",
     universalPhraseTranslations: {
@@ -557,6 +576,7 @@ const languages = [
     audioLang: "ja-JP",
     commonalityScore: 5,
     region: "east-asia",
+    countries: ["jp"],
     usagePerHour: 0.3,
     commonalityNote: "Indirect communication style (high-context culture) reduces overt interrogative frequency, though the concept is equally present.",
     universalPhraseTranslations: {
@@ -586,6 +606,7 @@ const languages = [
     audioLang: "ko-KR",
     commonalityScore: 7,
     region: "east-asia",
+    countries: ["kr", "kp"],
     usagePerHour: 0.7,
     commonalityNote: "Strong group culture (we-ness, 우리) with communal activities drives regular use in social coordination.",
     universalPhraseTranslations: {
@@ -615,6 +636,7 @@ const languages = [
     audioLang: "ta-IN",
     commonalityScore: 8,
     region: "south-asia",
+    countries: ["in", "lk", "sg", "my"],
     usagePerHour: 1.0,
     commonalityNote: "Tamil culture is highly communal with extended family networks; group enumeration is a daily occurrence.",
     universalPhraseTranslations: {
@@ -643,6 +665,7 @@ const languages = [
     audioLang: "te-IN",
     commonalityScore: 8,
     region: "south-asia",
+    countries: ["in"],
     usagePerHour: 1.0,
     commonalityNote: "Similar communal dynamics to Tamil; joint family systems create constant contexts for group coordination.",
     universalPhraseTranslations: {
@@ -672,6 +695,7 @@ const languages = [
     audioLang: "tr-TR",
     commonalityScore: 8,
     region: "middle-east",
+    countries: ["tr", "cy"],
     usagePerHour: 1.0,
     commonalityNote: "Turkish hospitality culture with frequent social gatherings (sohbet) makes this a natural and frequent phrase.",
     universalPhraseTranslations: {
@@ -700,6 +724,7 @@ const languages = [
     audioLang: "uz",
     commonalityScore: 7,
     region: "central-asia",
+    countries: ["uz", "kz"],
     usagePerHour: 0.7,
     commonalityNote: "Central Asian communal culture with strong traditions of collective hospitality (mehmon-navozlik).",
     universalPhraseTranslations: {
@@ -729,6 +754,7 @@ const languages = [
     audioLang: "sw",
     commonalityScore: 8,
     region: "east-africa",
+    countries: ["ke", "tz", "ug", "cd", "rw"],
     usagePerHour: 1.0,
     commonalityNote: "East African communal culture (Ubuntu philosophy) with frequent group decision-making drives high usage.",
     universalPhraseTranslations: {
@@ -757,6 +783,7 @@ const languages = [
     audioLang: "yo",
     commonalityScore: 8,
     region: "west-africa",
+    countries: ["ng", "bj", "tg"],
     usagePerHour: 1.0,
     commonalityNote: "Yoruba culture is famously communal with large extended family gatherings (idílé); the phrase is essential for social coordination.",
     universalPhraseTranslations: {
@@ -785,6 +812,7 @@ const languages = [
     audioLang: "zu",
     commonalityScore: 8,
     region: "south-africa",
+    countries: ["za"],
     usagePerHour: 1.0,
     commonalityNote: "Ubuntu ('I am because we are') philosophy means group inclusion is central; 'who else?' is a core social question.",
     universalPhraseTranslations: {
@@ -814,6 +842,7 @@ const languages = [
     audioLang: "id-ID",
     commonalityScore: 8,
     region: "southeast-asia",
+    countries: ["id", "my", "bn", "sg"],
     usagePerHour: 1.0,
     commonalityNote: "Indonesian communal culture (gotong royong — mutual cooperation) makes group coordination phrases very frequent.",
     universalPhraseTranslations: {
@@ -842,6 +871,7 @@ const languages = [
     audioLang: "fil-PH",
     commonalityScore: 10,
     region: "southeast-asia",
+    countries: ["ph"],
     usagePerHour: 1.5,
     commonalityNote: "Filipino culture is extremely social (bayanihan spirit); the ultra-compact 2-syllable phrase makes it one of the most frequently used interrogatives.",
     universalPhraseTranslations: {
@@ -870,6 +900,7 @@ const languages = [
     audioLang: "haw",
     commonalityScore: 3,
     region: "oceania",
+    countries: ["us"],
     usagePerHour: 0.1,
     commonalityNote: "Critically endangered language with very small speaker community; conversational frequency is inherently limited by speaker population.",
     universalPhraseTranslations: {
@@ -899,6 +930,7 @@ const languages = [
     audioLang: "vi-VN",
     commonalityScore: 8,
     region: "southeast-asia",
+    countries: ["vn"],
     usagePerHour: 1.0,
     commonalityNote: "Vietnamese communal culture and group dining traditions create frequent natural contexts for this phrase.",
     universalPhraseTranslations: {
@@ -927,6 +959,7 @@ const languages = [
     audioLang: "km",
     commonalityScore: 7,
     region: "southeast-asia",
+    countries: ["kh"],
     usagePerHour: 0.7,
     commonalityNote: "Cambodian communal culture with family-centered social life supports regular interrogative use.",
     universalPhraseTranslations: {
@@ -956,6 +989,7 @@ const languages = [
     audioLang: "fi-FI",
     commonalityScore: 5,
     region: "europe-west",
+    countries: ["fi"],
     usagePerHour: 0.3,
     commonalityNote: "Finnish communication style values silence and personal space; less frequent overt interrogation in group settings.",
     universalPhraseTranslations: {
@@ -984,6 +1018,7 @@ const languages = [
     audioLang: "hu-HU",
     commonalityScore: 7,
     region: "europe-east",
+    countries: ["hu"],
     usagePerHour: 0.7,
     commonalityNote: "Hungarian social culture is more expressive than Finnish; the compact two-word phrase is used frequently in casual settings.",
     universalPhraseTranslations: {
@@ -1013,6 +1048,7 @@ const languages = [
     audioLang: "ka",
     commonalityScore: 7,
     region: "caucasus",
+    countries: ["ge"],
     usagePerHour: 0.7,
     commonalityNote: "Georgian supra (feast) culture with elaborate toasting traditions creates frequent social enumeration contexts.",
     universalPhraseTranslations: {
@@ -1042,6 +1078,7 @@ const languages = [
     audioLang: "eu",
     commonalityScore: 6,
     region: "europe-west",
+    countries: ["es", "fr"],
     usagePerHour: 0.5,
     commonalityNote: "Strong community identity (herri) with communal traditions, but smaller speaker population moderates frequency.",
     universalPhraseTranslations: {
@@ -1071,6 +1108,7 @@ const languages = [
     audioLang: "qu",
     commonalityScore: 7,
     region: "south-america",
+    countries: ["pe", "bo", "ec"],
     usagePerHour: 0.7,
     commonalityNote: "Andean ayllu (community) system centers on collective labor; the morphologically compact form is efficient for group coordination.",
     universalPhraseTranslations: {
@@ -1100,6 +1138,7 @@ const languages = [
     audioLang: "nah",
     commonalityScore: 5,
     region: "central-america",
+    countries: ["mx"],
     usagePerHour: 0.3,
     commonalityNote: "Indigenous community settings with moderate speaker population; used regularly in communal contexts but less in urban daily life.",
     universalPhraseTranslations: {
@@ -1129,6 +1168,7 @@ const languages = [
     audioLang: "mi",
     commonalityScore: 6,
     region: "oceania",
+    countries: ["nz"],
     usagePerHour: 0.5,
     commonalityNote: "Māori culture is deeply communal (whānau, hapū, iwi); the phrase is important in hui (meetings) though the speaker population is small.",
     universalPhraseTranslations: {
@@ -1158,6 +1198,7 @@ const languages = [
     audioLang: null,
     commonalityScore: 8,
     region: "north-america",
+    countries: ["us", "ca"],
     usagePerHour: 1.0,
     commonalityNote: "Deaf communities are tightly knit with frequent face-to-face interaction; the spatial expressiveness makes this a very natural and frequent sign.",
     universalPhraseTranslations: {

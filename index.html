@@ -33,58 +33,29 @@
 
   <!-- ===== Main ===== -->
   <main class="main" role="main">
-    <!-- Counter + Mini Map Row -->
-    <section class="counter-row">
-      <div class="mini-map" aria-hidden="true">
-        <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-          <!-- North America -->
-          <path id="region-north-america" d="M50,50 L180,30 L220,60 L210,100 L170,140 L150,170 L120,160 L80,130 L40,100 Z" />
-          <!-- Central America -->
-          <path id="region-central-america" d="M120,160 L150,170 L160,200 L150,220 L130,210 L110,190 Z" />
-          <!-- South America -->
-          <path id="region-south-america" d="M150,220 L190,230 L210,270 L220,320 L200,370 L170,380 L140,350 L120,300 L130,250 Z" />
-          <!-- Europe West -->
-          <path id="region-europe-west" d="M340,40 L390,35 L410,50 L420,80 L400,110 L370,120 L340,100 L330,70 Z" />
-          <!-- Europe East -->
-          <path id="region-europe-east" d="M410,30 L470,25 L500,50 L510,90 L480,110 L440,100 L420,80 L410,50 Z" />
-          <!-- Middle East -->
-          <path id="region-middle-east" d="M440,110 L510,100 L540,130 L530,170 L490,180 L450,160 L430,140 Z" />
-          <!-- North Africa -->
-          <path id="region-north-africa" d="M330,130 L430,120 L450,160 L440,190 L380,200 L340,190 L310,160 Z" />
-          <!-- West Africa -->
-          <path id="region-west-africa" d="M310,190 L360,200 L370,240 L340,260 L300,250 L290,220 Z" />
-          <!-- East Africa -->
-          <path id="region-east-africa" d="M440,190 L480,200 L490,250 L470,290 L440,280 L420,240 L410,210 Z" />
-          <!-- South Africa -->
-          <path id="region-south-africa" d="M370,260 L420,260 L440,300 L430,340 L400,360 L370,340 L360,300 Z" />
-          <!-- Central Asia -->
-          <path id="region-central-asia" d="M500,50 L570,40 L600,70 L590,100 L550,110 L510,90 Z" />
-          <!-- South Asia -->
-          <path id="region-south-asia" d="M540,130 L590,120 L620,150 L610,200 L580,220 L550,200 L530,170 Z" />
-          <!-- East Asia -->
-          <path id="region-east-asia" d="M600,40 L680,30 L720,60 L710,110 L670,130 L630,120 L600,90 Z" />
-          <!-- Southeast Asia -->
-          <path id="region-southeast-asia" d="M620,160 L680,150 L720,180 L730,220 L700,240 L660,230 L630,200 Z" />
-          <!-- Oceania -->
-          <path id="region-oceania" d="M700,280 L760,270 L780,310 L770,350 L730,360 L700,340 L690,310 Z" />
-          <!-- Caucasus -->
-          <path id="region-caucasus" d="M480,90 L510,85 L520,100 L510,110 L490,110 L480,100 Z" />
-        </svg>
-      </div>
-      <div class="counter" aria-live="polite">
-        <div class="counter__number" aria-label="Speaker count">0</div>
-        <div class="counter__label">loading…</div>
-      </div>
+    <!-- Universality Counter -->
+    <section class="counter" aria-live="polite">
+      <div class="counter__number" aria-label="Speaker count">0</div>
+      <div class="counter__label">loading…</div>
     </section>
 
     <!-- Hero -->
     <section class="hero" aria-live="polite">
       <div class="hero__lang-label"></div>
       <div class="hero__native-name"></div>
-      <div class="hero__phrase" role="heading" aria-level="2"></div>
+      <div class="hero__phrase-wrap">
+        <div class="hero__phrase" role="heading" aria-level="2"></div>
+      </div>
       <div class="hero__romanization"></div>
       <div class="hero__gloss"></div>
+      <div class="hero__frequency" aria-label="Conversational frequency"></div>
       <button class="hero__audio-btn hidden" aria-label="Listen to pronunciation" title="Listen">&#9654;</button>
+    </section>
+
+    <!-- World Map -->
+    <section class="world-map-section" aria-label="Geographic distribution">
+      <h3 class="world-map-section__title">Spoken in</h3>
+      <div class="world-map" id="world-map-container"></div>
     </section>
 
     <!-- Actions -->
@@ -98,7 +69,6 @@
     <!-- Info Panel -->
     <section class="info-panel" aria-label="Language details">
       <div class="info-panel__grid"></div>
-      <div class="info-panel__commonality" aria-label="Conversational frequency"></div>
       <div class="info-panel__note">
         <div class="info-panel__note-label">How this language says "else"</div>
         <p class="info-panel__note-text"></p>
@@ -139,6 +109,7 @@
 <div class="toast" role="status" aria-live="polite"></div>
 
 <script src="languages.js"></script>
+<script src="worldmap.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
