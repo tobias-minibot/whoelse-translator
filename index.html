@@ -17,7 +17,15 @@
   <!-- ===== Header ===== -->
   <header class="header" role="banner">
     <h1 class="header__title">WHO ELSE?<span>Universal Translator</span></h1>
+    <div class="header__center">
+      <span class="header__speakers" aria-label="Total speakers">
+        <span class="counter__number">0</span>
+        <span class="counter__label">loading…</span>
+      </span>
+    </div>
     <div class="header__controls">
+      <button class="btn btn--sm" id="btn-random" aria-label="Show random language">&#127922; Random</button>
+      <button class="btn btn--sm" id="btn-tour" aria-label="Start tour mode">&#127760; Tour</button>
       <button class="btn mobile-menu-btn btn--icon" aria-label="Open language menu">&#9776;</button>
     </div>
   </header>
@@ -33,13 +41,7 @@
 
   <!-- ===== Main ===== -->
   <main class="main" role="main">
-    <!-- Universality Counter -->
-    <section class="counter" aria-live="polite">
-      <div class="counter__number" aria-label="Speaker count">0</div>
-      <div class="counter__label">loading…</div>
-    </section>
-
-    <!-- Hero -->
+    <!-- Hero: big centered phrase -->
     <section class="hero" aria-live="polite">
       <div class="hero__lang-label"></div>
       <div class="hero__native-name"></div>
@@ -48,8 +50,20 @@
       </div>
       <div class="hero__romanization"></div>
       <div class="hero__gloss"></div>
-      <div class="hero__frequency" aria-label="Conversational frequency"></div>
       <button class="hero__audio-btn hidden" aria-label="Listen to pronunciation" title="Listen">&#9654;</button>
+    </section>
+
+    <!-- Key Stats: speakers + frequency centered -->
+    <section class="key-stats" aria-label="Key statistics">
+      <div class="key-stats__speakers">
+        <span class="key-stats__number" id="lang-speakers"></span>
+        <span class="key-stats__label">native speakers</span>
+      </div>
+      <div class="key-stats__divider"></div>
+      <div class="key-stats__frequency">
+        <span class="key-stats__number" id="lang-frequency"></span>
+        <span class="key-stats__label">uses per day</span>
+      </div>
     </section>
 
     <!-- World Map -->
@@ -57,14 +71,6 @@
       <h3 class="world-map-section__title">Spoken in</h3>
       <div class="world-map" id="world-map-container"></div>
     </section>
-
-    <!-- Actions -->
-    <div class="actions">
-      <button class="btn" id="btn-random" aria-label="Show random language">&#127922; Random</button>
-      <button class="btn" id="btn-tour" aria-label="Start tour mode">&#127760; Tour the World</button>
-      <button class="btn" id="btn-copy" aria-label="Copy phrase">&#128203; Copy</button>
-      <button class="btn btn--gold" id="btn-share" aria-label="Create share card">&#128247; Share Card</button>
-    </div>
 
     <!-- Info Panel -->
     <section class="info-panel" aria-label="Language details">
@@ -75,12 +81,17 @@
       </div>
     </section>
 
-    <!-- Universal Phrases -->
+    <!-- Universal Phrases with frequency -->
     <section class="universal-phrases" aria-label="Universal everyday phrases">
-      <h3 class="universal-phrases__title">Universal Everyday Phrases</h3>
-      <p class="universal-phrases__subtitle">How other universally shared phrases are expressed in <span class="universal-phrases__lang-name"></span></p>
+      <h3 class="universal-phrases__title">Common Phrases in <span class="universal-phrases__lang-name"></span></h3>
       <div class="universal-phrases__grid"></div>
     </section>
+
+    <!-- Bottom Actions: Copy + Share -->
+    <div class="actions actions--bottom">
+      <button class="btn" id="btn-copy" aria-label="Copy phrase">&#128203; Copy</button>
+      <button class="btn btn--gold" id="btn-share" aria-label="Create share card">&#128247; Share Card</button>
+    </div>
   </main>
 </div>
 

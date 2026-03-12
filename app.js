@@ -23,11 +23,12 @@
   const heroAudioBtn = $(".hero__audio-btn");
   const counterNumber = $(".counter__number");
   const counterLabel = $(".counter__label");
+  const langSpeakers = $("#lang-speakers");
+  const langFrequency = $("#lang-frequency");
   const searchInput = $(".sidebar__search input");
   const sidebarLangList = $(".sidebar__langs");
   const infoGrid = $(".info-panel__grid");
   const infoNoteText = $(".info-panel__note-text");
-  const heroFrequency = $(".hero__frequency");
   const worldMapContainer = $("#world-map-container");
   const universalPhrasesGrid = $(".universal-phrases__grid");
   const universalPhrasesLangName = $(".universal-phrases__lang-name");
@@ -168,7 +169,7 @@
         heroAudioBtn.classList.add("hidden");
       }
 
-      updateFrequency(lang);
+      updateKeyStats(lang);
       updateWorldMap(lang);
       updateInfoPanel(lang);
       updateUniversalPhrases(lang);
@@ -206,17 +207,12 @@
     }, 350);
   }
 
-  // ---- Frequency (under hero) ----
-  function updateFrequency(lang) {
+  // ---- Key Stats ----
+  function updateKeyStats(lang) {
+    langSpeakers.textContent = formatNumber(lang.speakers);
     const perHour = lang.usagePerHour || 0;
     const perDay = Math.round(perHour * 10);
-    heroFrequency.innerHTML = `
-      <div class="hero-freq">
-        <span class="hero-freq__rate">~${perHour} uses/hour</span>
-        <span class="hero-freq__detail">~${perDay} uses per day</span>
-      </div>
-      <div class="hero-freq__note">${lang.commonalityNote}</div>
-    `;
+    langFrequency.textContent = "~" + perDay;
   }
 
   // ---- World Map ----
@@ -267,16 +263,18 @@
     universalPhrasesLangName.textContent = lang.name;
     const translations = lang.universalPhraseTranslations;
     const dir = lang.scriptDirection === "rtl" ? ' dir="rtl"' : "";
+    const perDay = Math.round((lang.usagePerHour || 0) * 10);
 
     // "Who else?" as first row (highlighted)
     let rows = `
       <div class="phrase-row phrase-row--active">
         <span class="phrase-row__english">Who else?</span>
         <span class="phrase-row__translation"${dir}>${lang.phrase}</span>
+        <span class="phrase-row__freq">~${perDay}/day</span>
       </div>
     `;
 
-    // Other universal phrases
+    // Other universal phrases with frequency
     rows += universalPhrases
       .map((phrase) => {
         const translation = translations ? translations[phrase.id] : "\u2014";
@@ -284,6 +282,7 @@
         <div class="phrase-row">
           <span class="phrase-row__english">${phrase.english}</span>
           <span class="phrase-row__translation"${dir}>${translation}</span>
+          <span class="phrase-row__freq">~${phrase.usagePerDay}/day</span>
         </div>
       `;
       })
